@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord GUI Server</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e2124;
+            color: #ffffff;
+            padding: 20px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            height: 30px;
+            margin-bottom: 10px;
+            background-color: #36393f;
+            color: #ffffff;
+            border: 1px solid #555555;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #7289da;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #677bc4;
+        }
+    </style>
+</head>
+<body>
+    <h2>Send Message</h2>
+    <textarea id="messageInput" placeholder="Enter your message"></textarea>
+    <button onclick="sendMessage()">Send Message</button>
+    <button onclick="spamMessage()">Spam Message</button>
+
+    <h2>Create Channel</h2>
+    <input type="text" id="channelNameInput" placeholder="Channel Name">
+    <button onclick="createChannel()">Create Channel</button>
+
+    <h2>Server Settings</h2>
+    <button onclick="serverSettings()">Update Server Settings</button>
+
+    <h2>Moderation</h2>
+    <button onclick="banUser()">Ban User</button>
+    <button onclick="kickUser()">Kick User</button>
+    <button onclick="warnUser()">Warn User</button>
+
+    <h2>Server Members</h2>
+    <ul id="serverMembersList">
+        <!-- Server members will be dynamically populated here -->
+    </ul>
+
+    <h2>Set Webhook URL</h2>
+    <input type="text" id="webhookUrlInput" placeholder="Enter webhook URL">
+    <button onclick="setWebhook()">Set Webhook</button>
+
+    <h2>Set Bot Token</h2>
+    <input type="text" id="botTokenInput" placeholder="Enter bot token">
+    <button onclick="setBotToken()">Set Bot Token</button>
+
+    <script>
+        var webhookUrl = '';
+        var botToken = '';
+
+        function sendMessage() {
+            var message = document.getElementById('messageInput').value;
+            if (!webhookUrl) {
+                alert("Please set the webhook URL first.");
+                return;
+            }
+            var payload = JSON.stringify({ content: message });
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", webhookUrl, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(payload);
+            xhr.onload = function() {
+                if (xhr.status == 204) {
+                    alert("Message sent successfully!");
+                } else {
+                    alert("Failed to send message. Status code: " + xhr.status);
+                }
+            };
+        }
+
+        function spamMessage() {
+            var message = document.getElementById('messageInput').value;
+            if (!webhookUrl) {
+                alert("Please set the webhook URL first.");
+                return;
+            }
+            var payload = JSON.stringify({ content: message });
+
+            for (var i = 0; i < 10; i++) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", webhookUrl, true);
+                xhr.setRequestHeader('Content-type', 'application/json');
+                xhr.send(payload);
+            }
+            alert("Messages spammed successfully!");
+        }
+
+        function createChannel() {
+            var channelName = document.getElementById('channelNameInput').value;
+            if (!webhookUrl) {
+                alert("Please set the webhook URL first.");
+                return;
+            }
+            var payload = JSON.stringify({ name: channelName });
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", webhookUrl, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(payload);
+            xhr.onload = function() {
+                if (xhr.status == 204) {
+                    alert("Channel created successfully!");
+                } else {
+                    alert("Failed to create channel. Status code: " + xhr.status);
+                }
+            };
+        }
+
+        // Placeholder functions for server settings, moderation, and server members
+        function serverSettings() {
+            alert("Server settings functionality is not implemented in this demo.");
+        }
+
+        function banUser() {
+            alert("Banning user functionality is not implemented in this demo.");
+        }
+
+        function kickUser() {
+            alert("Kicking user functionality is not implemented in this demo.");
+        }
+
+        function warnUser() {
+            alert("Warning user functionality is not implemented in this demo.");
+        }
+
+        // Placeholder for fetching and displaying server members
+        function fetchServerMembers() {
+            var serverMembers = ["User1", "User2", "User3", "User4", "User5"];
+            var serverMembersList = document.getElementById("serverMembersList");
+            serverMembersList.innerHTML = "";
+            serverMembers.forEach(function(member) {
+                var li = document.createElement("li");
+                li.textContent = member;
+                serverMembersList.appendChild(li);
+            });
+        }
+
+        // Initial fetch of server members when the page loads
+        window.onload = fetchServerMembers;
+
+        // Set webhook URL function
+        function setWebhook() {
+            webhookUrl = document.getElementById('webhookUrlInput').value;
+            alert("Webhook URL set successfully!");
+        }
+
+        // Set bot token function
+        function setBotToken() {
+            botToken = document.getElementById('botTokenInput').value;
+            alert("Bot token set successfully!");
+        }
+    </script>
+</body>
+</html>
